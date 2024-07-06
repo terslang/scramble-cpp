@@ -1,0 +1,26 @@
+* Scramble
+
+Scramble is a c++ header only library which prints a collection of strings in a scrambled manner with random characters.
+Inspired from this awesome [[https://codepen.io/soulwire/pen/mEMPrK][awesome codepen example]].
+
+** How to use it?
+
+Since this is a header only library add the header file directly in your source code or include directory and use it in your program as shown below.
+
+#+BEGIN_SRC c++
+#include "scramble-cpp/scramble.hpp"
+#include <vector>
+
+int main() {
+    std::vector<std::string> texts = {"Neo,",
+                                      "sooner or later",
+                                      "you're going to realize",
+                                      "just as I did",
+                                      "that there's a difference",
+                                      "between knowing the path",
+                                      "and walking the path"};
+    Scramble::scramble(texts, false); // changing it to true here will clear the text after printig is done
+    std::cout << "\n";
+    return 0;
+}
+#+END_SRC
