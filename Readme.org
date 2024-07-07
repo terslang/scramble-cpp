@@ -1,7 +1,7 @@
 * Scramble
 
 Scramble is a c++ header only library which prints a collection of strings in a scrambled manner with random characters.
-Inspired from this awesome [[https://codepen.io/soulwire/pen/mEMPrK][awesome codepen example]].
+Inspired from this [[https://codepen.io/soulwire/pen/mEMPrK][awesome codepen example]].
 
 ** How to use it?
 
