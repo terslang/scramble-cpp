@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <ostream>
 #include <random>
 #include <string>
 #include <thread>
@@ -24,7 +25,7 @@ class TransitionData {
 };
 
 const std::string CLEARLINE = "\33[2K\r";
-const std::string chars = "!<>-_\\/[]{}—=+*^?#()______";
+const std::string chars = "!<>-_\\/[]{}|=+*^?#()______";
 std::string curText = "";
 std::vector<TransitionData> queue;
 int frame = 0;
@@ -43,10 +44,9 @@ inline void displayString(std::string newText) {
     }
     std::string oldText = curText;
 
-    std::cout << CLEARLINE
-              << newText; // clears current line and prints new text
+    std::cout << CLEARLINE << newText
+              << std::flush; // clears current line and prints new text
 
-    std::fflush(stdout);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     curText = newText;
 }
@@ -61,7 +61,7 @@ inline void update() {
             complete++;
             output += transitionData.to;
         } else if (frame >= transitionData.start) {
-            if (transitionData.cr == "" || distr99(gen) < 28) {
+            if (transitionData.cr == "" || distr99(gen) < chars.length()) {
                 std::string ranChar = randomChar();
                 queue[i].cr = ranChar;
             }
