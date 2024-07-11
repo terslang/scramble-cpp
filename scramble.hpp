@@ -30,6 +30,7 @@ const std::string chars = "!<>-_\\/[]{}|=+*^?#()______";
 std::string curText = "";
 std::vector<TransitionData> queue;
 int frame = 0;
+uint printDelay = 100;
 
 std::random_device rd;
 std::mt19937 gen(rd());
@@ -48,7 +49,7 @@ inline void displayString(std::string newText) {
     std::cout << CLEARLINE << newText
               << std::flush; // clears current line and prints new text
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(printDelay));
     curText = newText;
 }
 
@@ -109,7 +110,9 @@ inline bool hasWhitespace(const std::string &str) {
 
 } // namespace
 
-inline void scramble(std::vector<std::string> texts, bool clearAll = true) {
+inline void scramble(std::vector<std::string> texts, bool clearAll = true,
+                     uint transitionDelay = 100, uint textDelay = 1000) {
+    printDelay = transitionDelay;
     for (auto text : texts) {
         if (hasWhitespace(text)) {
             std::cerr
@@ -124,7 +127,7 @@ inline void scramble(std::vector<std::string> texts, bool clearAll = true) {
     for (auto text : texts) {
         setText(text);
         std::fflush(stdout);
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(textDelay));
         if (clearAll)
             std::cout << CLEARLINE;
     }
