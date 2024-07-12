@@ -11,9 +11,9 @@ Since this is a header only library add the header file directly in your source 
 inline void scramble(std::vector<std::string> texts, bool clearAll = true, uint transitionDelay = 100, uint textDelay = 1000);
 #+END_SRC
 
-If =clearAll= is set to true, the text printed will be cleared at the end. Default is =true=
-=transitionDelay= is time you want in milliseconds between every print. Default is =100= ms.
-=textDelay= is the time you want in milliseconds between end of a text print and the start of the next text printing. Default is =1000= ms.
++ If =clearAll= is set to true, the text printed will be cleared at the end. Default is =true=.
++ =transitionDelay= is time you want in milliseconds between every print. Default is =100= ms.
++ =textDelay= is the time you want in milliseconds between end of a text print and the start of the next text printing. Default is =1000= ms.
 
 ** Example
 
