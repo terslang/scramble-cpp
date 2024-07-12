@@ -26,7 +26,7 @@ class TransitionData {
 };
 
 const std::string CLEARLINE = "\33[2K\r";
-const std::string chars = "!<>-_\\/[]{}|=+*^?#()______";
+const std::string chars = "!<>-_\\/[]{}|=+*^?#()$%@&;:~";
 std::string curText = "";
 std::vector<TransitionData> queue;
 int frame = 0;

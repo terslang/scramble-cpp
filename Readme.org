@@ -5,7 +5,17 @@ Inspired from this [[https://codepen.io/soulwire/pen/mEMPrK][awesome codepen exa
 
 ** How to use it?
 
-Since this is a header only library add the header file directly in your source code or include directory and use it in your program as shown below.
+Since this is a header only library add the header file directly in your source code or include directory and use it in your program as shown in the example.
+
+#+BEGIN_SRC cpp
+inline void scramble(std::vector<std::string> texts, bool clearAll = true, uint transitionDelay = 100, uint textDelay = 1000);
+#+END_SRC
+
+If =clearAll= is set to true, the text printed will be cleared at the end. Default is =true=
+=transitionDelay= is time you want in milliseconds between every print. Default is =100= ms.
+=textDelay= is the time you want in milliseconds between end of a text print and the start of the next text printing. Default is =1000= ms.
+
+** Example
 
 #+BEGIN_SRC cpp
 #include "scramble-cpp/scramble.hpp"
@@ -19,7 +29,7 @@ int main() {
                                       "that there's a difference",
                                       "between knowing the path",
                                       "and walking the path"};
-    Scramble::scramble(texts, false); // changing it to true here will clear the text after printig is done
+    Scramble::scramble(texts, false);
     std::cout << "\n";
     return 0;
 }
