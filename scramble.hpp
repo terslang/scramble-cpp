@@ -3,10 +3,7 @@
 
 #include <algorithm>
 #include <chrono>
-#include <cstdio>
-#include <cstdlib>
 #include <iostream>
-#include <ostream>
 #include <random>
 #include <string>
 #include <thread>
@@ -23,6 +20,10 @@ class TransitionData {
     int start;
     int end;
     std::string cr;
+
+    TransitionData(std::string &&from, std::string &&to, int &&start, int &&end,
+                   std::string &&cr)
+        : from(from), to(to), start(start), end(end), cr(cr) {}
 };
 
 const std::string CLEARLINE = "\33[2K\r";
@@ -40,7 +41,7 @@ std::uniform_int_distribution<> distr99(0, 100);
 
 inline std::string randomChar() { return chars.substr(distrrc(gen), 1); }
 
-inline void displayString(std::string newText) {
+inline void displayString(const std::string &newText) {
     if (newText.length() == 0) {
         return;
     }
@@ -82,18 +83,14 @@ inline void update() {
     }
 }
 
-inline void setText(std::string newText) {
+inline void setText(const std::string &newText) {
     std::string oldText = curText;
     int length = std::max(oldText.length(), newText.length());
     queue.clear();
     for (int i = 0; i < length; i++) {
-        TransitionData transitionData;
-        transitionData.from = i < oldText.length() ? oldText.substr(i, 1) : "";
-        transitionData.to = i < newText.length() ? newText.substr(i, 1) : "";
-        transitionData.start = distr40(gen);
-        transitionData.end = distr40(gen);
-        transitionData.cr = "";
-        queue.push_back(transitionData);
+        queue.emplace_back(i < oldText.length() ? oldText.substr(i, 1) : "",
+                           i < newText.length() ? newText.substr(i, 1) : "",
+                           distr40(gen), distr40(gen), "");
     }
     frame = 0;
     update();
@@ -110,8 +107,9 @@ inline bool hasWhitespace(const std::string &str) {
 
 } // namespace
 
-inline void scramble(std::vector<std::string> texts, bool clearAll = true,
-                     uint transitionDelay = 100, uint textDelay = 1000) {
+inline void scramble(const std::vector<std::string> &texts,
+                     bool clearAll = true, uint transitionDelay = 100,
+                     uint textDelay = 1000) {
     printDelay = transitionDelay;
     for (auto text : texts) {
         if (hasWhitespace(text)) {
